@@ -1,0 +1,23 @@
+def morse() do
+end
+
+def encode_table() do
+  codes(morse(), [])
+end
+
+def codes(:nil, _) do
+  []
+end
+def codes({:node, :na, longe, short}, code) do
+  codes(long, [?-|code]) ++ codes(short, [?.|code])
+end
+def codes({:node, char, long, short}, code) do
+  [{char, Enum.reverse(code)}] ++ codes(long, [?-|code]) ++ codes(short, [?.|code])
+end
+
+def encode_lookup(char, [{char, code}|_]) do
+  code
+end
+def encode_lookup(char, [_|rest]) do
+  encode_lookup(char, rest)
+end
